@@ -1,0 +1,122 @@
+name: Playwright Tests
+on:
+  workflow_dispatch:
+
+env:
+  ACCT_LOGIN: ${{ secrets.USERNAME }}
+  ACCT_PASSWORD: ${{ secrets.PASSWORD }}
+  EMAIL: ${{ secrets.EMAIL}}
+  EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+  PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+  PARENT_PASS: ${{ secrets.PARENT_PASS }}
+  SIGN_SECRET: ${{ secrets.SLACK_SIGNING_SECRET }}
+  O_AUTH: ${{ secrets.O_AUTH }}
+  PHONE_ALT: ${{ secrets.PHONE_ALT }}
+  ACCT_LOGIN2: ${{ secrets.USERNAME2 }}
+  ACCT_LOGIN3: ${{ secrets.USERNAME3 }}
+  ACCT_LOGIN4: ${{ secrets.USERNAME4 }}
+
+
+permissions:
+  id-token: write
+  contents: write
+  pages: write
+
+jobs:
+  test:
+    timeout-minutes: 25
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+
+    - name: Cache node_modules
+      uses: actions/cache@v4
+      id: node-modules-cache
+      with:
+        path: |
+          node_modules
+        key: modules-${{ hashFiles('package-lock.json') }}
+
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Slack New
+      run: npm install @slack/bolt
+
+    - name: Cache Playwright binaries
+      uses: actions/cache@v4
+      id: cache-playwright
+      with:
+        path: |
+          C:\Users\runneradmin\AppData\Local\ms-playwright
+        key: playwright-${{ hashFiles('package-lock.json') }}
+        enableCrossOsArchive: true
+    - name: Install Playwright Browsers
+      if: steps.cache-playwright.outputs.cache-hit != 'true'
+      run: npx playwright install --with-deps
+
+    - name: Run Playwright tests 1
+      run: npx playwright test tests/1-baT6-new.spec.ts --project=chromium --ignore-snapshots
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: blob-report-1
+        path: blob-report/
+        overwrite: true
+        retention-days: 7
+
+    - name: Run Playwright tests 2
+      run: npx playwright test tests/2-baT6-new.spec.ts --project=chromium2 --workers=4 --ignore-snapshots
+      if: always()
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: blob-report-2
+        path: blob-report/
+        retention-days: 7
+
+    - name: Run Playwright tests 3
+      run: npx playwright test tests/3-baT6-new.spec.ts --project=firefox --workers=3
+      if: always()
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: blob-report-3
+        path: blob-report/
+        retention-days: 7
+
+    - name: Download blob reports from GitHub Actions Artifacts
+      uses: actions/download-artifact@v4
+      if: always()
+      with:
+        path: blob-report/
+        pattern: blob-report-*
+        merge-multiple: true
+  
+    - name: Merge into HTML Report
+      if: always()
+      run: npx playwright merge-reports --reporter html blob-report/
+    
+    - name: Upload HTML report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: html-report--attempt-${{ github.run_attempt }}
+        path: playwright-report/
+        retention-days: 14
+
+    - name: Setup Pages
+      if: always()
+      uses: actions/configure-pages@v5
+    - name: Upload artifact
+      if: always()
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: 'playwright-report/'
+    - name: Deploy to GitHub Pages
+      if: always()
+      id: deployment
+      uses: actions/deploy-pages@v4
+

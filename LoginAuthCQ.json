@@ -1,0 +1,47 @@
+{
+  "cookies": [
+    {
+      "name": "rm",
+      "value": "true",
+      "domain": "target110.brightarrow.com",
+      "path": "/",
+      "expires": 1712127599,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "un",
+      "value": "dHNldG5heXItMTcxMjA5MjIyMTY0MA%3D%3D",
+      "domain": "target110.brightarrow.com",
+      "path": "/",
+      "expires": 1712127599,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://target110.brightarrow.com",
+      "localStorage": [
+        {
+          "name": "persist:hs-beacon-message-41ef3438-715e-4b3b-8ed5-fc5c49bab0a1",
+          "value": "{\"message\":\"{\\\"name\\\":\\\"\\\",\\\"email\\\":\\\"\\\",\\\"subject\\\":\\\"\\\",\\\"text\\\":\\\"\\\",\\\"attachments\\\":[],\\\"fields\\\":[],\\\"persist\\\":true}\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "i18nextLng",
+          "value": "en"
+        },
+        {
+          "name": "persist:hs-beacon-41ef3438-715e-4b3b-8ed5-fc5c49bab0a1",
+          "value": "{\"chat\":\"{\\\"id\\\":\\\"\\\",\\\"messageBody\\\":\\\"\\\",\\\"persistedMessages\\\":[],\\\"state\\\":\\\"CHAT_STATE_EMPTY\\\",\\\"subject\\\":\\\"\\\"}\",\"docs\":\"{\\\"article\\\":{\\\"data\\\":null,\\\"payload\\\":null,\\\"isLoading\\\":false,\\\"isError\\\":false},\\\"beaconIsOpened\\\":false,\\\"openedArticles\\\":[]}\",\"messages\":\"{\\\"shownMessages\\\":[],\\\"staticConditionsState\\\":{\\\"pageViews\\\":1,\\\"repeatPageViews\\\":[{\\\"url\\\":\\\"https://target110.brightarrow.com/r/\\\",\\\"count\\\":1}]},\\\"syncedCustomerHash\\\":null,\\\"lastSyncTimestamp\\\":null,\\\"shownMessagesTimestamps\\\":{}}\",\"status\":\"{\\\"hasShownFabAnimation\\\":false}\",\"user\":\"{\\\"email\\\":\\\"\\\",\\\"name\\\":\\\"\\\",\\\"signature\\\":\\\"\\\",\\\"identified\\\":false}\",\"auth\":\"{\\\"deviceId\\\":\\\"d0c0541c-6e66-4fbe-b38d-446ffdaa4440\\\",\\\"jwt\\\":\\\"\\\"}\",\"stats\":\"{}\",\"timeline\":\"{\\\"activity\\\":[{\\\"type\\\":\\\"page-viewed\\\",\\\"timestamp\\\":\\\"2024-04-02T21:10:21.567Z\\\",\\\"url\\\":\\\"https://target110.brightarrow.com/r/\\\",\\\"title\\\":\\\"BrightArrow\\\"}]}\",\"_persist\":\"{\\\"version\\\":0,\\\"rehydrated\\\":true}\"}"
+        },
+        {
+          "name": "loglevel",
+          "value": "TRACE"
+        }
+      ]
+    }
+  ]
+}
